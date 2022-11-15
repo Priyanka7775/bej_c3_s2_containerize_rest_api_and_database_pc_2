@@ -1,0 +1,77 @@
+To pull the mysql image from docker hub
+
+C:\Users\DSI>docker pull mysql
+Using default tag: latest
+latest: Pulling from library/mysql
+feec22b5b798: Already exists
+3b33952322b1: Pull complete
+8632ee03bb1c: Pull complete
+636ccd115361: Pull complete
+b07c8fac8eea: Pull complete
+e44c54db9c14: Pull complete
+cf9c45749101: Pull complete
+9f2fa3febc47: Pull complete
+44d5e1d3c311: Pull complete
+bb3db2c5d8ec: Pull complete
+e0ead729abd9: Pull complete
+Digest: sha256:717e6f25ed8997b7ecb0408e063c4dcba202a68b341ebac4c4d97f51439b87ee
+Status: Downloaded newer image for mysql:latest
+docker.io/library/mysql:latest
+========================================================
+Giving container name 
+C:\Users\DSI>docker run -it --network user-network --name userservice -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root -d mysql
+93646f6c5f0114d9b715f4825079c57149aa21a71aed5994abcf5f016aeefdb7
+========================================================
+Executing mysql using dockercommand
+
+C:\Users\DSI>docker exec -it userservice bash
+bash-4.4# mysql -u root -p
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.31 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+===================================================================
+Creating database
+mysql> show databases;
+
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+4 rows in set (0.00 sec)
+
+mysql> create database userdb;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use userdb;
+Database changed
+
+mysql> create table user(userName varchar(100), userAddress varchar(100),userNumber int,userEmail varchar(100));
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> insert into user values("Priyanka","Raipur",12332199,"p@gmail.com");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into user values("Neelima","Jaipur",912332199,"n@gmail.com");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from user;
++----------+-------------+------------+-------------+
+| userName | userAddress | userNumber | userEmail   |
++----------+-------------+------------+-------------+
+| Priyanka | Raipur      |   12332199 | p@gmail.com |
+| Neelima  | Jaipur      |  912332199 | n@gmail.com |
++----------+-------------+------------+-------------+
+2 rows in set (0.00 sec)
